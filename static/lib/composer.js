@@ -241,9 +241,16 @@ define('composer', [
 	composer.load = function(post_uuid) {
 		var postContainer = $('#cmp-uuid-' + post_uuid);
 		if (postContainer.length) {
-			activate(post_uuid);
-			resize.reposition(postContainer);
-			focusElements(postContainer);
+			// Show composer on mobile
+			var isMobile = composer.bsEnvironment === 'xs' || composer.bsEnvironment === 'sm'
+			if (isMobile) {
+				var qs = '?p=' + window.location.pathname;
+				ajaxify.go('compose', function() { 
+					activate(post_uuid);
+					resize.reposition(postContainer);
+					focusElements(postContainer);
+				}, false, qs);
+			}
 		} else {
 			createNewComposer(post_uuid);
 		}
@@ -319,6 +326,7 @@ define('composer', [
 			isAdminOrMod: app.user.isAdmin || postData.isMod
 		};
 
+		
 		if (data.mobile) {
 			var qs = '?p=' + window.location.pathname;
 			ajaxify.go('compose', function() {
@@ -327,6 +335,8 @@ define('composer', [
 		} else {
 			renderComposer();
 		}
+		
+		//renderComposer();
 
 		function renderComposer() {
 			parseAndTranslate('composer', data, function(composerTemplate) {
@@ -404,6 +414,14 @@ define('composer', [
 							btn.prop('disabled', false);
 						});
 					});
+				});
+
+				// Minimize button
+				postContainer.find('.composer-minimize').on('click', function() {
+					//$(".composer").css('visibility', 'hidden');
+					composer.minimize(post_uuid);
+					removeComposerHistory();
+					//$('#cmp-uuid-' + post_uuid).remove();
 				});
 
 				postContainer.on('click', function() {

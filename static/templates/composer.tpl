@@ -5,6 +5,11 @@
 			<span class="pull-left">
 				<button class="btn btn-primary composer-discard" data-action="discard" tabindex="-1"><i class="fa fa-times"></i></button>
 			</span>
+
+			<span class="pull-left">
+				<button class="btn btn-primary composer-minimize" data-action="minimize" tabindex="-1"><i class="fa fa-minus"></i></button>
+			</span>
+
 			<span class="pull-right">
 				<button class="btn btn-primary composer-submit" data-action="post" tabindex="-1"><i class="fa fa-chevron-right"></i></button>
 			</span>
