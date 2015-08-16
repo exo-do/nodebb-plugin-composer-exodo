@@ -168,6 +168,9 @@ define('composer', [
 		// Add link to post with an arrow always
 		var link = ' [&#10168;](/topic/' + ajaxify.variables.get('topic_slug') + '/' + postIndex + ')';
 
+		// Delete quotes inside other quote
+		text = text.replace(/\>( \>)+.*\n/gi, "");
+
 		if (uuid === undefined) {
 			composer.newReply(tid, pid, title, '[[modules:composer.user_said, ' + username + ']]' + link + '\n' + text);
 			return;
