@@ -169,7 +169,9 @@ define('composer', [
 		var link = ' [&#10168;](/topic/' + ajaxify.variables.get('topic_slug') + '/' + postIndex + ')';
 
 		// Delete quotes inside other quote
-		text = text.replace(/\>( \>)+.*\n/gi, "");
+		text = text.replace(/\>[ ]\>.*\n/gi, ""); // Delete quoted message
+		text = text.replace(/\>[ ]\n/gi, ""); // Delete "> \n"
+		text = text.replace(/\>.*\[\&#10168\;\].*\n/gi, ""); // Delete "> @someone said: "
 
 		if (uuid === undefined) {
 			composer.newReply(tid, pid, title, '[[modules:composer.user_said, ' + username + ']]' + link + '\n' + text);
