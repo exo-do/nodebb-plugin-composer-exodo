@@ -19,7 +19,7 @@ define('composer/resize', ['autosize'], function(autosize) {
 
 		// todo, lump in browsers that don't support transform (ie8) here
 		// at this point we should use modernizr
-		if (env === 'sm' || env === 'xs' || window.innerHeight < 480) {
+		if (env === 'sm' || env === 'xs' || env === 'md'|| window.innerHeight < 480) {
 			$('html').addClass('composing mobile');
 			autosize(postContainer.find('textarea')[0]);
 			percentage = 1;
@@ -36,7 +36,7 @@ define('composer/resize', ['autosize'], function(autosize) {
 				percentage = max;
 			}
 
-			if (env === 'md' || env === 'lg') {
+			if ( env === 'lg') {
 				var transform = 'translate(0, ' + (Math.abs(1-percentage) * 100) + '%)';
 				postContainer.css({
 					'-webkit-transform': transform,
