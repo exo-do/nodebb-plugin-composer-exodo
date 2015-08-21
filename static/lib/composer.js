@@ -593,7 +593,21 @@ define('composer', [
 			discard(post_uuid);
 			drafts.removeDraft(postData.save_id);
 			
-			ajaxify.go('topic/' + data.topic.slug + '/' + data.index);
+			var topicUrl = 'topic/' + data.topic.slug + '/' + data.index;
+			var isMobile = composer.bsEnvironment === 'xs' || composer.bsEnvironment === 'sm';
+			if(isMobile)
+			{
+				ajaxify.go(topicUrl);
+			}
+			else
+			{
+				if ( ajaxify.variables.get('currentPage') === ajaxify.variables.get('pageCount') )
+				{
+					scrollToBottom();
+				} else {
+					ajaxify.go(topicUrl);
+				}
+			}
 
 			/*
 			if (action === 'topics.post') {
@@ -606,6 +620,13 @@ define('composer', [
 
 			$(window).trigger('action:composer.' + action, {composerData: composerData, data: data});
 		});
+	}
+	function scrollToBottom() {
+		setTimeout(function () {
+			$('html, body').animate({
+				scrollTop: $(document).height()
+			}, 500)
+		}, 500);
 	}
 
 	function discard(post_uuid) {
