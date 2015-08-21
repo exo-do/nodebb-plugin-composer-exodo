@@ -592,12 +592,17 @@ define('composer', [
 
 			discard(post_uuid);
 			drafts.removeDraft(postData.save_id);
+			
+			ajaxify.go('topic/' + data.topic.slug + '/' + data.index);
 
+			/*
 			if (action === 'topics.post') {
-				ajaxify.go('topic/' + data.slug);
+				ajaxify.go('topic/' + data.topic.slug + '/' + data.index);
 			} else {
 				removeComposerHistory();
 			}
+			*/
+			
 
 			$(window).trigger('action:composer.' + action, {composerData: composerData, data: data});
 		});
