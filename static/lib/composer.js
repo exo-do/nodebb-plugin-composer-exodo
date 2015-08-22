@@ -593,19 +593,26 @@ define('composer', [
 			discard(post_uuid);
 			drafts.removeDraft(postData.save_id);
 			
-			var topicUrl = 'topic/' + data.topic.slug + '/' + data.index;
-			var isMobile = composer.bsEnvironment === 'xs' || composer.bsEnvironment === 'sm';
-			if(isMobile)
+			if(action == "posts.edit")
 			{
-				ajaxify.go(topicUrl);
+				removeComposerHistory();
 			}
 			else
 			{
-				if ( ajaxify.variables.get('currentPage') === ajaxify.variables.get('pageCount') )
+				var topicUrl = 'topic/' + data.topic.slug + '/' + data.index;
+				var isMobile = composer.bsEnvironment === 'xs' || composer.bsEnvironment === 'sm';
+				if(isMobile)
 				{
-					scrollToBottom();
-				} else {
 					ajaxify.go(topicUrl);
+				}
+				else
+				{
+					if ( ajaxify.variables.get('currentPage') === ajaxify.variables.get('pageCount') )
+					{
+						scrollToBottom();
+					} else {
+						ajaxify.go(topicUrl);
+					}
 				}
 			}
 
