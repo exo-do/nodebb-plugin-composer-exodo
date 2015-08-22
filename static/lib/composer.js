@@ -592,15 +592,15 @@ define('composer', [
 
 			discard(post_uuid);
 			drafts.removeDraft(postData.save_id);
-			
-			if(action == "posts.edit")
+
+			var isMobile = composer.bsEnvironment === 'xs' || composer.bsEnvironment === 'sm';
+			if(action == "posts.edit" && isMobile)
 			{
 				removeComposerHistory();
 			}
 			else
 			{
 				var topicUrl = 'topic/' + data.topic.slug + '/' + data.index;
-				var isMobile = composer.bsEnvironment === 'xs' || composer.bsEnvironment === 'sm';
 				if(isMobile)
 				{
 					ajaxify.go(topicUrl);
