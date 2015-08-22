@@ -594,7 +594,11 @@ define('composer', [
 			drafts.removeDraft(postData.save_id);
 
 			var isMobile = composer.bsEnvironment === 'xs' || composer.bsEnvironment === 'sm';
-			if(action == "posts.edit" && isMobile)
+			if (action === 'topics.post')
+			{
+				ajaxify.go('topic/' + data.slug + '/');
+			}
+			else if((action == "posts.edit" && isMobile) || !data.topic)
 			{
 				removeComposerHistory();
 			}
