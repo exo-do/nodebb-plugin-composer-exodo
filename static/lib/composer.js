@@ -248,13 +248,20 @@ define('composer', [
 		if (postContainer.length) {
 			// Show composer on mobile
 			var isMobile = composer.bsEnvironment === 'xs' || composer.bsEnvironment === 'sm'
-			if (isMobile) {
+			if (isMobile)
+			{
 				var qs = '?p=' + window.location.pathname;
 				ajaxify.go('compose', function() { 
 					activate(post_uuid);
 					resize.reposition(postContainer);
 					focusElements(postContainer);
 				}, false, qs);
+			}
+			else
+			{
+				activate(post_uuid);
+				resize.reposition(postContainer);
+				focusElements(postContainer);
 			}
 		} else {
 			createNewComposer(post_uuid);
